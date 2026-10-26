@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+"""Programme principal."""
+
+from biblio.bibliotheque import Bibliotheque
+from biblio.commandes import *
+from biblio import EMAIL_SUPPORT
+
+
+def main():
+    """Fonction principale."""
+    biblio = Bibliotheque()
+    biblio.charger()  # EXO 8
+
+    while True:
+        try:
+            cmd = input("> Entrez votre commande (M pour afficher le menu) : ")
+
+            if cmd == "M":
+                affiche_menu()
+            elif cmd == "NG":
+                nouveau_genre(biblio)
+                biblio.sauvegarder()
+            elif cmd == "NL":
+                nouveau_livre(biblio)
+                biblio.sauvegarder()
+            elif cmd == "LL":
+                afficher_livres(biblio)
+            elif cmd == "LG":
+                liste_genres(biblio)
+            elif cmd == "SL":
+                supprimer_livre(biblio)
+                biblio.sauvegarder()
+            elif cmd == "SG":
+                supprimer_genre(biblio)
+                biblio.sauvegarder()
+            elif cmd == "Q":
+                break
+
+        except KeyboardInterrupt:
+            print("\nArrêt du programme")
+            break
+        except EOFError:
+            print("\nFin du programme")
+            break
+        except Exception:
+            print(
+                f"Une erreur est survenue. Contactez {EMAIL_SUPPORT}"
+            )
+            break
+
+
+if __name__ == "__main__":
+    main()
